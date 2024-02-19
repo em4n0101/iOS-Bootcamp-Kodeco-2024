@@ -143,3 +143,69 @@ struct Square {
 
 let square = Square(sideLength: 5)
 print("Area of the square: \(square.area)")
+
+
+/**
+ Create a protocol called Shape with a calculateArea() -> Double method. Create two structs called Circle and Rectangle that conform to the protocol Shape. Both Circle and Rectangle should have appropriate stored properties for calculating the area.
+ */
+
+protocol Shape {
+    func calculateArea() -> Double
+}
+
+struct Circle: Shape {
+    var radius: Double
+
+    func calculateArea() -> Double {
+        return Double.pi * radius * radius
+    }
+}
+
+struct Rectangle: Shape {
+    var length: Double
+    var width: Double
+
+    func calculateArea() -> Double {
+        return length * width
+    }
+}
+
+/**
+ Create instances of Circle and Rectangle and print out the area for each.
+ */
+let circle = Circle(radius: 5)
+let rectangle = Rectangle(length: 10, width: 5)
+
+print("Area of circle: \(circle.calculateArea())")
+print("Area of rectangle: \(rectangle.calculateArea())")
+
+/**
+ Next, extend the protocol Shape to add a new method called calculateVolume() -> Double.
+ */
+extension Shape {
+    func calculateVolume() -> Double {
+        0
+    }
+}
+
+/**
+ Finally, create a struct called Sphere that conforms to Shape. Sphere should have appropriate stored properties for calculating area and volume.
+ */
+struct Sphere: Shape {
+    var radius: Double
+
+    func calculateArea() -> Double {
+        return 4 * Double.pi * radius * radius
+    }
+
+    func calculateVolume() -> Double {
+        return (4.0 / 3.0) * Double.pi * radius * radius * radius
+    }
+}
+
+/**
+ Create an instance of Sphere and print the area and volume.
+ */
+let sphere = Sphere(radius: 5)
+print("Area of sphere: \(sphere.calculateArea())")
+print("Volume of sphere: \(sphere.calculateVolume())")
