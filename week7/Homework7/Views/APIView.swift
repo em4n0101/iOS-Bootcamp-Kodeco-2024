@@ -30,68 +30,33 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-class UserStore: ObservableObject {
-  @Published var errorMessage: String? = nil
-  @Published var userResult: UserResult = UserResult(
-    results: [],
-    info: Info(
-      seed: "",
-      results: 0,
-      page: 0,
-      version: ""
-    )
-  ) {
-    didSet {
-      saveJSONPrioritizedUser()
-    }
-  }
-  let userJSONURL = URL(fileURLWithPath: "UserResults",
-                       relativeTo: FileManager.documentsDirectoryURL).appendingPathExtension("json")
+struct APIView: View {
+  @ObservedObject var apiStore: APIStore
   
-  init() {
-    loadUserJSON()
-  }
-  
-  private func loadUserJSON() {
-    let jsonURL: URL
-    
-    if let bundleURL = Bundle.main.url(forResource: "userresults", withExtension: "json"),
-      FileManager.default.fileExists(atPath: bundleURL.path) {
-      jsonURL = bundleURL
-    } else {
-      if FileManager.default.fileExists(atPath: userJSONURL.path) {
-        jsonURL = userJSONURL
+  var body: some View {
+    NavigationStack {
+      if let errorMessage = apiStore.errorMessage {
+        Text(errorMessage)
+          .foregroundColor(.red)
+          .padding()
       } else {
-        errorMessage = "Error: Failed to load API data"
-        return
+        List(apiStore.apiCollection.entries) { apiEntry in
+          ApiRowView(apiEntry: apiEntry)
+        }
+        .listStyle(.plain)
+        .navigationTitle("API List")
+        .navigationDestination(for: APIEntry.self) { apiEntry in
+          ApiDetailsView(apiEntry: apiEntry)
+        }
       }
     }
-    
-    let decoder = JSONDecoder()
-    
-    do {
-      let userData = try Data(contentsOf: jsonURL)
-      let userCollectionDecoded = try decoder.decode(UserResult.self, from: userData)
-      userResult = userCollectionDecoded
-      
-    } catch let error {
-      print(error)
-      errorMessage = "Error: Failed to decode API data"
-    }
   }
-  
-  private func saveJSONPrioritizedUser() {
-    let encoder = JSONEncoder()
-    encoder.outputFormatting = .prettyPrinted
-    
-    do {
-      let apiData = try encoder.encode(userResult)
-      
-      try apiData.write(to: userJSONURL, options: .atomicWrite)
-    } catch let error {
-      print(error)
-    }
+}
+
+struct APIView_Previews: PreviewProvider {
+  static var previews: some View {
+    APIView(apiStore: APIStore())
   }
 }

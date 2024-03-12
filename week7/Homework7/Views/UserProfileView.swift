@@ -36,56 +36,64 @@ struct UserProfileView: View {
   @ObservedObject var userStore: UserStore
   
   var user: Result? {
-    userStore.userResult.first
+    userStore.userResult.results.first
   }
   
   var body: some View {
-    VStack {
-      ZStack {
-        AsyncImage(
-          url: URL(string: user?.picture.medium ?? ""),
-          content: { image in
-            image
-              .resizable()
-              .aspectRatio(contentMode: .fill)
-              .frame(height: 160)
-              .blur(radius: 10)
-          },  placeholder: {
-            ProgressView()
-          }
-        )
-        .frame(height: 160)
+    
+    if let errorMessage = userStore.errorMessage {
+      Text(errorMessage)
+        .foregroundColor(.red)
+        .padding()
+    } else {
+      VStack {
+        ZStack {
+          AsyncImage(
+            url: URL(string: user?.picture.medium ?? ""),
+            content: { image in
+              image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 160)
+                .blur(radius: 10)
+            },  placeholder: {
+              ProgressView()
+            }
+          )
+          .frame(height: 160)
+          
+          AsyncImage(
+            url: URL(string: user?.picture.medium ?? ""),
+            content: { image in
+              image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 120, height: 120)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white, lineWidth: 4))
+            },  placeholder: {
+              ProgressView()
+            })
+          .frame(width: 120, height: 120)
+        }
         
-        AsyncImage(
-          url: URL(string: user?.picture.medium ?? ""),
-          content: { image in
-            image
-              .resizable()
-              .aspectRatio(contentMode: .fill)
-              .frame(width: 120, height: 120)
-              .clipShape(Circle())
-              .overlay(Circle().stroke(Color.white, lineWidth: 4))
-          },  placeholder: {
-            ProgressView()
-          })
-        .frame(width: 120, height: 120)
+        Text("\(user?.name.first ?? "") \(user?.name.last ?? "")" )
+          .font(.title)
+          .fontWeight(.bold)
+          .foregroundColor(.white)
+        
+        Spacer()
+        VStack(spacing: 8) {
+          Label(user?.email ?? "", systemImage: "envelope.fill")
+          Label(user?.phone ?? "", systemImage: "phone.fill")
+          Text("Gender: \(user?.gender ?? "")")
+          Text("Country: \(user?.location.country ?? "")")
+          Text("State: \(user?.location.state ?? "")")
+          Text("City: \(user?.location.city ?? "")")
+        }
+        Spacer()
       }
       
-      Text("\(user?.name.first ?? "") \(user?.name.last ?? "")" )
-        .font(.title)
-        .fontWeight(.bold)
-        .foregroundColor(.white)
-      
-      Spacer()
-      VStack(spacing: 8) {
-        Label(user?.email ?? "", systemImage: "envelope.fill")
-        Label(user?.phone ?? "", systemImage: "phone.fill")
-        Text("Gender: \(user?.gender ?? "")")
-        Text("Country: \(user?.location.country ?? "")")
-        Text("State: \(user?.location.state ?? "")")
-        Text("City: \(user?.location.city ?? "")")
-      }
-      Spacer()
     }
   }
 }

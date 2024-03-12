@@ -22,6 +22,7 @@
 		4D4FAE9B2B9D716B00690044 /* UserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4FAE9A2B9D716B00690044 /* UserResult.swift */; };
 		4D4FAE9D2B9D71AA00690044 /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4FAE9C2B9D71AA00690044 /* UserStore.swift */; };
 		4D4FAEA02B9F643400690044 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4FAE9F2B9F643400690044 /* FileManager.swift */; };
+		4D4FAEA22BA018AD00690044 /* APIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4FAEA12BA018AD00690044 /* APIView.swift */; };
 		BAF39C2E2AB792B400B18802 /* apilist.json in Resources */ = {isa = PBXBuildFile; fileRef = BAF39C2D2AB792B400B18802 /* apilist.json */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		4D4FAE9A2B9D716B00690044 /* UserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResult.swift; sourceTree = "<group>"; };
 		4D4FAE9C2B9D71AA00690044 /* UserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		4D4FAE9F2B9F643400690044 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		4D4FAEA12BA018AD00690044 /* APIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIView.swift; sourceTree = "<group>"; };
 		BAF39C2D2AB792B400B18802 /* apilist.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = apilist.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +121,7 @@
 				4D4FAE782B9D199200690044 /* ApiRowView.swift */,
 				4D4FAE7A2B9D48EA00690044 /* ApiDetailsView.swift */,
 				4D4FAE982B9D6F8C00690044 /* UserProfileView.swift */,
+				4D4FAEA12BA018AD00690044 /* APIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				4D4FAE9D2B9D71AA00690044 /* UserStore.swift in Sources */,
 				4D4FAEA02B9F643400690044 /* FileManager.swift in Sources */,
 				4D4FAE762B9CD05100690044 /* APIStore.swift in Sources */,
+				4D4FAEA22BA018AD00690044 /* APIView.swift in Sources */,
 				4D4FAE722B9CCC4F00690044 /* APICollection.swift in Sources */,
 				1839F4B025190F2A00BB00F1 /* AppMain.swift in Sources */,
 			);

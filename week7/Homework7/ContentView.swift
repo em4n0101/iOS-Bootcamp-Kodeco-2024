@@ -37,25 +37,15 @@ struct ContentView: View {
   @ObservedObject var userStore: UserStore
   
   var body: some View {
-      TabView {
-        NavigationStack {
-          List(apiStore.apiList) { apiEntry in
-            ApiRowView(apiEntry: apiEntry)
-          }
-          .listStyle(.plain)
-          .navigationTitle("API List")
-          .navigationDestination(for: APIEntry.self) { apiEntry in
-            ApiDetailsView(apiEntry: apiEntry)
-          }
-        }
-      
+    TabView {
+      APIView(apiStore: apiStore)
         .tabItem {
           Label("APIs", systemImage: "list.bullet.circle")
         }
-        UserProfileView(userStore: userStore)
-          .tabItem {
-            Label("User Profile", systemImage: "list.bullet.circle")
-          }
+      UserProfileView(userStore: userStore)
+        .tabItem {
+          Label("User Profile", systemImage: "list.bullet.circle")
+        }
       
     }
   }
